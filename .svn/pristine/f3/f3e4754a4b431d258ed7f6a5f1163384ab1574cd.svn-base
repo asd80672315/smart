@@ -1,0 +1,36 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE html >
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>创意收集</title>
+
+    <!-- Bootstrap -->
+    <link href="${pageContext.request.contextPath }/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">    
+    <!-- CSS Files -->
+    <link href="${pageContext.request.contextPath }/static/css/style.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+   
+  </head>
+  <body>
+    <div>
+    	<label>青岛-慧与软件全球大数据应用研究及产业示范基地   期待与您的合作！请选择您的合作意向</label><br>
+    	<a href = "${pageContext.request.contextPath }/originality/gooriginality_person">个人加入</a>&nbsp;&nbsp;<a href = "${pageContext.request.contextPath }/originality/gooriginality_company">公司合作</a>
+    </div>
+  </body>
+</html>

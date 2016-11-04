@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="IndustriesMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+    	
+	<!-- 获取所有industry数据 -->
+	<select id="findAllIndustry" parameterType="pd" resultType="pd" useCache="false">
+		SELECT 
+			IndustryID, Name
+		FROM 
+			Industries
+		WHERE 
+		IndustryID != 0
+	</select>
+</mapper>

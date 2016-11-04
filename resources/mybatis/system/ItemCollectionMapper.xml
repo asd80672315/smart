@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ItemCollectionMapper">
+
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+
+	<!-- 新增访客交互项目记录 -->
+	<insert id="saveItemCollection" parameterType="pd" flushCache="false">
+
+		INSERT INTO
+		QingdaoBigData.ItemCollections(
+		No,
+		ReservationID,
+		Begintimestamp,
+		CreatedBy,
+		CreatedDate,
+		ModifiedBy,
+		ModifiedDate,
+		Endtimestamp
+		)
+		VALUES
+		(#{No},
+		#{ReservationID},
+		<choose>
+			<when test="BeginDatetime!=null">
+				#{BeginDatetime},
+			</when>
+			<otherwise>null,</otherwise>
+		</choose>
+		#{CreatedBy},
+		<choose>
+			<when test="CreatedDate!=null">
+				#{CreatedDate},
+			</when>
+			<otherwise>null,</otherwise>
+		</choose>
+		#{CreatedBy},	 <!-- 新建时直接使用创建日期作为修改日期 -->
+		<choose>
+			<when test="CreatedDate!=null">
+				#{CreatedDate},
+			</when>
+			<otherwise>null,</otherwise>
+		</choose>
+		<choose>
+			<when test="EndDatetime!=null">
+				#{EndDatetime}
+			</when>
+			<otherwise>null</otherwise>
+		</choose>
+		)
+	</insert>
+
+
+	<update id="updateItemCollectionByReservationId" parameterType="pd"
+		flushCache="false">
+		UPDATE
+		QingdaoBigData.ItemCollections
+		SET
+		ModifiedBy=#{ModifiedBy},
+		ModifiedDate=
+		<choose>
+			<when test="ModifiedDate!=null">
+				#{ModifiedDate},
+			</when>
+			<otherwise>null,</otherwise>
+		</choose>
+		Endtimestamp=
+		<choose>
+			<when test="EndDatetime!=null">
+				#{EndDatetime}
+			</when>
+			<otherwise>null</otherwise>
+		</choose>
+		WHERE
+		ReservationID=#{ReservationID}
+
+	</update>
+</mapper>

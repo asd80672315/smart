@@ -1,0 +1,52 @@
+package com.zhzg.service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.zhzg.dao.impl.DaoSupport;
+import com.zhzg.util.PageData;
+import com.zhzg.util.Tools;
+
+
+
+@Service("dietCollectionsService")
+public class DietCollectionsService {
+	
+	@Resource(name = "daoSupport")
+	private DaoSupport dao; 
+	
+	/**
+	 * pd内容为ReservationID和一个名为DietCollections的字符串(各个菜单逗号隔开)，对应数据表里多条记录
+	 * */
+	public void saveDietCollections(PageData pd) throws Exception{
+		List list=new ArrayList();
+		
+		Integer reservationId=(Integer) pd.get("ReservationID");
+		String dietCollections=pd.getString("DietCollections");		
+		String[] menuIDs=dietCollections.split(",");
+		
+		for(String menuID : menuIDs){
+			//如果menuID不是数字，则转为null,如果menueID为数字，但为空，则置为null
+			if(Tools.isEmpty(menuID)||!menuID.matches("\\d+")){
+				menuID=null;
+			}
+			PageData objDietCollection=new PageData();
+			objDietCollection.put("ReservationID", reservationId);
+			objDietCollection.put("MenuID", menuID);
+			list.add(objDietCollection);
+		}
+		dao.batchSave("DietCollectionsMapper.saveDietCollections", list);
+	}
+	
+	
+	public List findAllMenus() throws Exception{
+		return (List)dao.findForList("MenusMapper.findAllMenus",new PageData());
+	}
+	
+}

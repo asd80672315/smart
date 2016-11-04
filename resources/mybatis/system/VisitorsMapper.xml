@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="VisitorsMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+
+	
+	<!-- 通过ReservationID获取访客数据 -->
+	<select id="findByReservationID" parameterType="pd" resultType="pd" useCache="false">
+		select 
+			VisitorID          ,
+			SmartBallID        ,
+			ReservationID      ,
+			Name               ,
+			Sex                ,
+			Age                ,
+			Phone              ,
+			Mail               ,
+			IndustryID         ,
+			OccupationID       ,
+			PositionID         ,
+			Organization       ,
+			Region             ,
+			Type               ,
+			State              ,
+			URL                ,
+			VisitDate          ,
+			QuestionnaireID    ,
+			Memo               ,
+			CreatedBy          ,
+			CreatedDate        ,
+			ModifiedBy         ,
+			ModifiedDate       
+		from 
+			QingdaoBigData.Visitors
+		where 
+			ReservationID = #{ReservationID}
+	</select>
+	<!-- 通过ReservationID获取访客数据 -->
+	<select id="findByTel" parameterType="pd" resultType="pd" useCache="false">
+		select 
+			VisitorID          ,
+			SmartBallID        ,
+			ReservationID      ,
+			Name               ,
+			Sex                ,
+			Age                ,
+			Phone              ,
+			Mail               ,
+			IndustryID         ,
+			OccupationID       ,
+			PositionID         ,
+			Organization       ,
+			Region             ,
+			Type               ,
+			State              ,
+			URL                ,
+			VisitDate          ,
+			QuestionnaireID    ,
+			Memo               ,
+			CreatedBy          ,
+			CreatedDate        ,
+			ModifiedBy         ,
+			ModifiedDate       
+		from 
+			QingdaoBigData.Visitors
+		where 
+			Phone = #{Phone}
+			or
+			Name = #{Name}
+	</select>
+		
+	<!-- 根据智慧球id获取预约id -->	
+	<select id="findReservationIdBySmartId" parameterType="pd" resultType="Integer" useCache="false">
+	select 
+			ReservationID       
+		from 
+			QingdaoBigData.Visitors
+		where 
+			SmartBallID = #{SmartBallID}
+		and
+		State=2
+	  order by modifiedDate desc limit 1
+
+	</select>	
+	
+	<!-- 生成未来身份证信息 -->
+		<select id="findIDInformation" parameterType="pd" resultType="pd" useCache="false">
+		SELECT
+			v.Name Name, 
+			v.Sex Sex, 
+			v.Age Age, 
+			v.Phone Phone,
+			v.URL URL,
+			v.SmartBallID SmartBallID,
+			ic.No No,
+			i.Name ItemName,
+			(TO_SECONDS(ic.EndDateTime)-TO_SECONDS(ic.BeginDateTime)) Seconds,
+			fs.Score Score,
+			fs.MatchedName StarName,
+			ds.Suggestion DietSuggestion
+		FROM
+			QingdaoBigData.Visitors v LEFT JOIN QingdaoBigData.ItemCollections ic ON
+			v.ReservationID=ic.ReservationID	
+			JOIN QingdaoBigData.Items i ON
+			i.No=ic.No
+			LEFT JOIN QingdaoBigData.FamousScore fs ON
+			fs.ReservationID=v.ReservationID
+			LEFT JOIN QingdaoBigData.dietanalyses da ON
+			da.ReservationID=v.ReservationID
+			JOIN QingdaoBigData.DietSuggestions ds ON 
+			da.Result=ds.Result
+		WHERE 
+			v.SmartBallID=#{SmartBallID} AND
+			v.State=2
+					
+		
+	</select>
+	
+	<!-- 查询最大的visitorid -->
+	<select id="findMaxVisitorId" parameterType="pd" resultType="int" useCache="false">
+		SELECT
+			max(VisitorID)
+		FROM
+			QingdaoBigData.Visitors 
+	</select>
+	
+	<!-- 新增访客-->
+	<insert id="saveVisitor" parameterType="pd" flushCache="false">
+		insert into QingdaoBigData.Visitors (
+		<!-- 	VisitorID, -->
+			SmartBallID,
+			ReservationID,
+			Name,
+			Sex,
+			Age,
+			Phone,
+			Mail,
+			IndustryID,
+			OccupationID,
+			PositionID,
+			Organization,
+			Region,
+			Type,
+			State,
+			URL,
+			VisitDate,
+			QuestionnaireID,
+			Memo,
+			CreatedBy,
+			CreatedDate,
+			ModifiedBy,
+			ModifiedDate
+		) values (
+		<!-- 	#{VisitorID}, -->
+			#{SmartBallID},
+			<choose>
+				<when test="ReservationID!=null">
+				#{ReservationID},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>			
+			#{Name},
+			#{Sex},
+			<choose>
+				<when test="Age!=null">
+				#{Age},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			#{Phone},
+			#{Mail},
+			<choose>
+				<when test="IndustryID!=null">
+				#{IndustryID},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			<choose>
+				<when test="OccupationID!=null">
+				#{OccupationID},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			<choose>
+				<when test="PositionID!=null">
+				#{PositionID},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			#{Organization},
+			#{Region},
+			#{Type},
+			#{State},
+			#{URL},			
+			<choose>
+				<when test="VisitDate!=null">
+				#{VisitDate},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			
+			<choose>
+				<when test="QuestionnaireID!=null">
+				#{QuestionnaireID},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			#{Memo},
+			#{CreatedBy},
+			<choose>
+				<when test="CreatedDate!=null">
+				#{CreatedDate},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			#{ModifiedBy},
+			<choose>
+				<when test="ModifiedDate!=null">
+				#{ModifiedDate}
+				</when>
+				<otherwise>null</otherwise>
+			</choose>
+		)
+	</insert>
+<!-- 团体访客 批量新增 -->
+	<insert id="saveVisitors" parameterType="java.util.List" flushCache="false">
+		insert into QingdaoBigData.Visitors (
+			VisitorID          ,
+			SmartBallID        ,
+			ReservationID      ,
+			Name               ,
+			Sex                ,
+			Age                ,
+			Phone              ,
+			Mail               ,
+			IndustryID         ,
+			OccupationID       ,
+			PositionID         ,
+			Organization       ,
+			Region             ,
+			Type               ,
+			State              ,
+			URL                ,
+			VisitDate          ,
+			QuestionnaireID    ,
+			Memo               ,
+			CreatedBy          ,
+			CreatedDate        ,
+			ModifiedBy         ,
+			ModifiedDate      )
+			values
+			<foreach collection="list" item="item" index="index" separator="," >  
+		    (
+		    #{item.VisitorID},
+			#{item.SmartBallID},
+			#{item.ReservationID},
+			#{item.Name},
+			#{item.Sex},
+			#{item.Age},
+			#{item.Phone},
+			#{item.Mail},
+			#{item.IndustryID},
+			#{item.OccupationID},
+			#{item.PositionID},
+			#{item.Organization},
+			#{item.Region},
+			#{item.Type},
+			#{item.State},
+			#{item.URL},
+			#{item.VisitDate},
+			#{item.QuestionnaireID},
+			#{item.Memo},
+			#{item.CreatedBy},
+			#{item.CreatedDate},
+			#{item.ModifiedBy},
+			#{item.ModifiedDate} 
+			)
+		    </foreach>  
+  			 
+	</insert>
+	
+	<!-- 更新访客信息， -->
+	<update id="updateVisitorByID" parameterType="pd" flushCache="false">
+		UPDATE QingdaoBigData.visitors SET
+			<!-- VisitorID=#{VisitorID}, -->
+			SmartBallID=#{SmartBallID},
+			ReservationID=#{ReservationID},
+			Name=#{Name},
+			Sex=#{Sex},
+			Age=
+			<choose>
+				<when test="Age!=null">
+				#{Age},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			Phone=#{Phone},
+			Mail=#{Mail},
+			IndustryID=
+			<choose>
+				<when test="IndustryID!=null">
+				#{IndustryID},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			OccupationID=
+			<choose>
+				<when test="OccupationID!=null">
+				#{OccupationID},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			PositionID=
+			<choose>
+				<when test="PositionID!=null">
+				#{PositionID},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			Organization=#{Organization},
+			Region=#{Region},
+			Type=#{Type},
+			State=#{State},
+			URL=#{URL},
+			VisitDate=			
+			<choose>
+				<when test="VisitDate!=null">
+				#{VisitDate},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			QuestionnaireID=
+			<choose>
+				<when test="QuestionnaireID!=null">
+				#{QuestionnaireID},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			Memo=#{Memo},
+			ModifiedBy=#{ModifiedBy},
+			ModifiedDate=
+			<choose>
+				<when test="ModifiedDate!=null">
+				#{ModifiedDate}
+				</when>
+				<otherwise>null</otherwise>
+			</choose>
+			WHERE
+			VisitorID=#{VisitorID}
+	</update>
+	
+	
+	<update id="updateVisitorState" parameterType="pd" flushCache="false">
+		UPDATE QingdaoBigData.Visitors SET 
+		State=3
+		WHERE
+		SmartBallID=#{SmartBallID} AND
+		State!=3
+	</update>
+</mapper>

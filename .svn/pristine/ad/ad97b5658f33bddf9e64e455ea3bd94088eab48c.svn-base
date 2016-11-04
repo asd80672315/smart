@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OriginalityMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+
+	<!-- 新增创意-->
+	<insert id="saveOriginality" parameterType="pd" flushCache="false">
+		insert into OriginalityCollections(
+			ReservationID,
+			Name,
+			Description,
+			Manner,
+			Phone,
+			Email,
+			IntentionManner,
+			Contact,
+			TechnicalField,
+			Position,
+			Memo,
+			CreatedBy,
+			CreatedDate,
+			ModifiedBy,
+			ModifiedDate
+		) values (
+			#{ReservationID},
+			#{Name},
+			#{Description},
+			#{Manner},
+			#{Phone},
+			#{Email},
+			#{IntentionManner},
+			#{Contact},
+			#{TechnicalField},
+			#{Position},
+			#{Memo},
+			#{CreatedBy},
+			#{CreatedDate},
+			#{ModifiedBy},
+			#{ModifiedDate}
+		)
+	</insert>
+	<!-- 新增意见-->
+	<insert id="saveAdvice" parameterType="pd" flushCache="false">
+		insert into AdviceCollection(
+			ID,
+			Content,
+			Memo,
+			CreatedBy,
+			CreatedDate,
+			ModifiedBy,
+			ModifiedDate
+		) values (
+			#{ID},
+			#{Content},
+			#{Memo},
+			#{CreatedBy},
+			#{CreatedDate},
+			#{ModifiedBy},
+			#{ModifiedDate}
+		)
+	</insert>
+</mapper>

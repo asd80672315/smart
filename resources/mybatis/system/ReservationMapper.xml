@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReservationMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+
+	<!-- 修改 -->
+	
+	<!-- 通过ReservationID获取数据 -->
+	<select id="findByReservationID" parameterType="pd" resultType="pd" useCache="false">
+		select 
+			ReservationID,
+			Type,
+			BeginNumber,
+			EndNumber,
+			BookingDate,
+			State,
+			Name,
+			Sex,
+			Age,
+			OccupationID,
+			PositionID,
+			Organization,
+			Mail,
+			Region,
+			Phone,
+			GroupName,
+			GroupNumber,
+			IndustryID,
+			Memo,
+			CreatedBy,
+			CreatedDate,
+			ModifiedBy,
+			ModifiedDate
+		from 
+			QingdaoBigData.Reservations
+		where 
+			ReservationID = #{ReservationID}
+	</select>
+		
+	<!-- 获取当天的预约数量 -->
+	<select id="getMaxReservationNumber" parameterType="pd" resultType="java.lang.String" useCache="false">
+		SELECT Max(EndNumber)+1
+		FROM 
+		QingdaoBigData.Reservations
+		WHERE 
+		CreatedDate BETWEEN #{CurrentDay} AND #{NextDay}
+	</select>
+	<!-- 新增预约 -->
+	<insert id="saveReservation" parameterType="pd" flushCache="false">
+		insert into QingdaoBigData.Reservations (
+			ReservationID,
+			Type,
+			BeginNumber,
+			EndNumber,
+			BookingDate,
+			State,
+			Name,
+			Sex,
+			Age,
+			OccupationID,
+			PositionID,
+			Organization,
+			Mail,
+			Region,
+			Phone,
+			GroupName,
+			GroupNumber,
+			IndustryID,
+			Memo,
+			CreatedBy,
+			CreatedDate,
+			ModifiedBy,
+			ModifiedDate
+		) values (			
+			<choose>
+				<when test="ReservationID!=null">
+				#{ReservationID},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			#{Type},
+			#{BeginNumber},
+			#{EndNumber},			
+			<choose>
+				<when test="BookingDate!=null">
+				#{BookingDate},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			#{State},
+			#{Name},
+			#{Sex},			
+			<choose>
+				<when test="Age!=null">
+				#{Age},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			
+			<choose>
+				<when test="OccupationID!=null">
+				#{OccupationID},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			
+			<choose>
+				<when test="PositionID!=null">
+				#{PositionID},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			#{Organization},
+			#{Mail},
+			#{Region},
+			#{Phone},
+			#{GroupName},
+			
+			<choose>
+				<when test="GroupNumber!=null">
+				#{GroupNumber},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			
+			<choose>
+				<when test="IndustryID!=null">
+				#{IndustryID},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			#{Memo},
+			#{CreatedBy},
+			
+			<choose>
+				<when test="CreatedDate!=null">
+				#{CreatedDate},
+				</when>
+				<otherwise>null,</otherwise>
+			</choose>
+			#{ModifiedBy},
+			
+			<choose>
+				<when test="ModifiedDate!=null">
+				#{ModifiedDate}
+				</when>
+				<otherwise>null</otherwise>
+			</choose>
+		)
+	</insert>
+	
+	
+
+</mapper>

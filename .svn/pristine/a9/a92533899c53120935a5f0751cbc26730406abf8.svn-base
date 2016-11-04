@@ -1,0 +1,263 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>展馆预约</title>
+		
+    <!-- Bootstrap -->
+    <link href="${pageContext.request.contextPath }/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS Files -->
+    <link href="${pageContext.request.contextPath }/static/css/style.css" rel="stylesheet" />
+		
+
+
+<style>
+	
+	
+</style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  	<div class="container" id="mycontainer">
+      <div class="row">
+	      <form action="${pageContext.request.contextPath}/visitors/updatevisitor" method="post" class="form-horizontal myform" id="myform_photo">
+					<input type="hidden" name="Type" value="${pd.Type }"><span style="color:red;font-size:10px">${error.type }</span>
+					<input type="hidden" name="VisitorID" value="${pd.VisitorID }"><span style="color:red;font-size:10px">${error.visitorid }</span>
+					<input type="hidden" name="State" value="${pd.State }"><span style="color:red;font-size:10px">${error.state }</span>
+					<input type="hidden" name="Memo" value="${pd.Memo }">
+					<input type="hidden" name="token" value="${token}" >
+					<input type="hidden" id="Pic" name="Pic" >
+          <input type="hidden" name="url" value="${pageContext.request.contextPath}/visitors/ballstartup" />
+          <div class="form-group">
+          	<label for="ReservationID" class="col-sm-2 control-label"></label>
+	          <div class="col-sm-4">
+	           	<div class="media myMedia">
+				        <div id="divVideo">
+				          <video id="video" width="640" height="480" autoplay ></video> 
+				        </div><!-- /#divVideo -->
+				        <div id="divSnap">
+				          <canvas id="canvas" width="360" height="480"></canvas>
+				        </div><!-- /#divSnap -->
+					    </div><!-- /.media .myMedia -->
+				    	<button class="btn btn-default" type="button" id="buttonPhoto" onclick="changeSavePhoto()"><span id="saveID">拍照</span><span id="photoID" style="display:none">重新拍照</span></button>
+				    	<span style="color:red;font-size:10px">${error.pic }</span>
+					  </div><!-- /.col -->
+              
+            <label for="ReservationID" class="col-sm-1 control-label">预约号</label>
+            <div class="col-sm-4">
+              <input class="form-control" type="text" id="ReservationID" name="ReservationID" value="${pd.ReservationID }" readonly="readonly" ><span style="color:red;font-size:10px">${error.reservationid }</span>
+            </div><!-- /ReservationID -->
+              
+            <label class="col-sm-6 control-label myLable"></label>
+            
+            <label for="Name" class="col-sm-1 control-label">嘉宾姓名</label>
+            <div class="col-sm-4">
+              <input class="form-control" type="text" id="Name" name="Name" value="${pd.Name }" placeholder="请输入您的姓名..."><span style="color:red;font-size:10px">${error.name }</span>
+            </div><!-- /Name -->
+            
+            <label class="col-sm-6 control-label myLable"></label>
+						
+						<label for="Phone" class="col-sm-1 control-label">联系电话</label>
+              <div class="col-sm-4">
+                <input class="form-control" type="text" id="Phone" name="Phone" value="${pd.Phone }" placeholder="请输入您的联系电话..."><span style="color:red;font-size:10px">${error.phone }</span>
+              </div><!-- /Phone -->
+              
+              <label for="IndustryID" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label">所属行业</label>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            	<select class="form-control" id="IndustryID" name="IndustryID">
+            		<option value="">==请选择您的行业==</option>
+            	</select><span style="color:red;font-size:10px">${error.industry }</span>
+            </div>
+            
+            <label class="col-sm-6 control-label myLable"></label>
+            
+            <label for="Region" class="col-sm-1 control-label">所在地区</label>
+            <div class="col-sm-4">
+              <select class="form-control" id="Region" name="Region" data-toggle="popover" data-placement="right" onblur="validateRegion()" onfocus="cleanPopover()">
+								<option value="" ${pd.Region==''?'selected':''}>==请选择您所在的地区==</option>
+								<option value="北京" ${pd.Region=='北京'?'selected':''}>北京</option>
+								<option value="上海" ${pd.Region=='上海'?'selected':''}>上海</option>
+								<option value="天津" ${pd.Region=='天津'?'selected':''}>天津</option>
+								<option value="重庆" ${pd.Region=='重庆'?'selected':''}>重庆</option>
+								<option value="河北" ${pd.Region=='河北'?'selected':''}>河北</option>
+								<option value="山西" ${pd.Region=='山西'?'selected':''}>山西</option>
+								<option value="陕西" ${pd.Region=='陕西'?'selected':''}>陕西</option>
+								<option value="山东" ${pd.Region=='山东'?'selected':''}>山东</option>
+								<option value="河南" ${pd.Region=='河南'?'selected':''}>河南</option>
+								<option value="辽宁" ${pd.Region=='辽宁'?'selected':''}>辽宁</option>
+								<option value="吉林" ${pd.Region=='吉林'?'selected':''}>吉林</option>
+								<option value="黑龙江" ${pd.Region=='黑龙江'?'selected':''}>黑龙江</option>
+								<option value="江苏" ${pd.Region=='江苏'?'selected':''}>江苏</option>
+								<option value="浙江" ${pd.Region=='浙江'?'selected':''}>浙江</option>
+								<option value="安徽" ${pd.Region=='安徽'?'selected':''}>安徽</option>
+								<option value="江西" ${pd.Region=='江西'?'selected':''}>江西</option>
+								<option value="福建" ${pd.Region=='福建'?'selected':''}>福建</option>
+								<option value="湖北" ${pd.Region=='湖北'?'selected':''}>湖北</option>
+								<option value="湖南" ${pd.Region=='湖南'?'selected':''}>湖南</option>
+								<option value="四川" ${pd.Region=='四川'?'selected':''}>四川</option>
+								<option value="贵州" ${pd.Region=='贵州'?'selected':''}>贵州</option>
+								<option value="云南" ${pd.Region=='云南'?'selected':''}>云南</option>
+								<option value="广东" ${pd.Region=='广东'?'selected':''}>广东</option>
+								<option value="海南" ${pd.Region=='海南'?'selected':''}>海南</option>
+								<option value="甘肃" ${pd.Region=='甘肃'?'selected':''}>甘肃</option>
+								<option value="青海" ${pd.Region=='青海'?'selected':''}>青海</option>
+								<option value="台湾" ${pd.Region=='台湾'?'selected':''}>台湾</option>
+								<option value="内蒙古" ${pd.Region=='内蒙古'?'selected':''}>内蒙古</option>
+								<option value="新疆" ${pd.Region=='新疆'?'selected':''}>新疆</option>
+								<option value="西藏" ${pd.Region=='西藏'?'selected':''}>西藏</option>
+								<option value="广西" ${pd.Region=='广西'?'selected':''}>广西</option>
+								<option value="宁夏" ${pd.Region=='宁夏'?'selected':''}>宁夏</option>
+								<option value="香港" ${pd.Region=='香港'?'selected':''}>香港</option>
+								<option value="澳门" ${pd.Region=='澳门'?'selected':''}>澳门</option>
+           		</select><span style="color:red;font-size:10px">${error.region }</span>
+            </div><!-- /Region -->
+              
+            <label class="col-sm-6 control-label myLable"></label>
+            
+            <label for="Sex" class="col-sm-1 control-label">嘉宾性别</label>
+            <div class="col-sm-4">
+              <select class="form-control" id="Sex" name="Sex" >
+                <option value="">==请选择您的性别==</option>
+                <option value="0" ${pd.Sex=='0'?'selected':''}>保密</option>
+                <option value="1" ${pd.Sex=='1'?'selected':''}>男</option>
+                <option value="2" ${pd.Sex=='2'?'selected':''}>女</option>
+              </select>
+            </div><!-- /Sex -->
+            
+            <label class="col-sm-6 control-label myLable"></label>
+            
+            <label for="Age" class="col-sm-1 control-label">嘉宾年龄</label>
+            <div class="col-sm-4">
+              <input class="form-control" type="text" id="Age" name="Age" value="${pd.Age }" placeholder="请输入您的年龄..."><span style="color:red;font-size:10px">${error.age }</span>
+            </div><!-- /Age -->
+            
+            <label class="col-sm-6 control-label myLable"></label>
+            
+            <label for="OccupationID" class="col-sm-1 control-label">嘉宾职业</label>
+            <div class="col-sm-4">
+              <select class="form-control" id="OccupationID" name="OccupationID" >
+                <option value="">==请选您的择职业==</option>
+              </select>
+            </div><!-- /OccupationID -->
+            
+            <label class="col-sm-6 control-label myLable"></label>
+            
+            <label for="PositionID" class="col-sm-1 control-label">嘉宾职务</label>
+            <div class="col-sm-4">
+              <select class="form-control" id="PositionID" name="PositionID" >
+              
+                <option value="">==请选您的择职务==</option>
+              </select>
+            </div><!-- /PositionID -->
+            
+            <label class="col-sm-6 control-label myLable"></label>
+            
+            <label for="Organization" class="col-sm-1 control-label">工作单位</label>
+            <div class="col-sm-4">
+              <input class="form-control" type="text" id="Organization" name="Organization" value="${pd.Organization }" placeholder="请输入您的工作单位...">
+            </div><!-- /Organization -->
+            
+            <label class="col-sm-6 control-label myLable"></label>
+            
+            <label for="Mail" class="col-sm-1 control-label">嘉宾邮箱</label>
+            <div class="col-sm-4">
+              <input class="form-control" type="email" id="Mail" name="Mail" value="${pd.Mail }" placeholder="请输入您的常用邮箱...">
+            </div><!-- /Mail -->
+            
+            <label class="col-sm-6 control-label myLable"></label>
+            
+            
+          </div><!-- /.row -->
+          
+          <button type="submit" class="center-block" id="saveButton" >保存</button>
+        </form>
+		  </div><!-- / -->
+		</div><!-- / -->
+
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="${pageContext.request.contextPath }/static/jquery/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="${pageContext.request.contextPath }/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath }/static/js/jquery.backstretch.min.js"></script>
+    <script id="getcommondataScript" data="occupationid=${pd.OccupationID}&positionid=${pd.PositionID}&industryid=${pd.IndustryID}" src="${pageContext.request.contextPath }/static/js/getcommondata.js"></script>
+		<script>
+		var tmp = 1;
+		$.backstretch([
+		      "/smart/static/img/backgrounds/1.jpg"
+		    , "/smart/static/img/backgrounds/2.jpg"
+		    , "/smart/static/img/backgrounds/3.jpg"
+		    ], {duration: 3000, fade: 750});
+	// 设置事件监听
+		$(function() {
+				/*	
+				$("#myModal").modal({
+					show:true,
+    			backdrop:'static'
+    			
+				});	
+				*/		
+				// 获取文档对象				
+				var canvas = document.getElementById("canvas");
+				var context = canvas.getContext("2d");
+				var video = document.getElementById("video");
+				var videoObj = {"video" : true};
+				var errBack = function(error) {
+					if (error.PERMISSION_DENIED) {
+                    	alert("用户拒绝了浏览器请求媒体的权限", "提示");
+                 	} else if (error.NOT_SUPPORTED_ERROR) {
+                    	alert("对不起，您的浏览器不支持拍照功能，请使用其他浏览器", "提示");
+                	} else if (error.MANDATORY_UNSATISFIED_ERROR) {
+                   		alert("指定的媒体类型未接收到媒体流", "提示");
+                	} else {
+                     	alert("系统未能获取到摄像头，请确保摄像头已正确安装。或尝试刷新页面，重试", "提示");
+            		}
+ 				};		
+				var width = document.getElementById("video").getAttribute("width");			
+				var height = document.getElementById("video").getAttribute("height");
+				
+				// 获取视频内容			
+				if (navigator.getUserMedia) { // Standard			
+					navigator.getUserMedia(videoObj, function(stream) {			
+						video.src = stream;			
+						video.play();			
+					}, errBack);			
+				} else if (navigator.webkitGetUserMedia) { // WebKit-prefixed			
+					navigator.webkitGetUserMedia(videoObj,function(stream) {			
+								video.src = window.webkitURL.createObjectURL(stream);			
+								video.play();			
+					}, errBack);			
+				} else if (navigator.mozGetUserMedia) { // WebKit-prefixed			
+					navigator.mozGetUserMedia(videoObj, function(stream) {			
+						video.src = window.URL.createObjectURL(stream);			
+						video.play();			
+					}, errBack);			
+				}	
+										
+				document.getElementById("buttonPhoto").addEventListener(			
+						"click",function() {	
+							context.drawImage(video, 0, 0, width,height);	
+							// 生成图片	
+							var Pic = document.getElementById("canvas").toDataURL("image/png");		
+							Pic = Pic.replace(/^data:image\/(png|jpg);base64,/, "");
+							$("#Pic").val(Pic);
+							$("#divSnap").toggle();
+							$("#divVideo").toggle();
+						});	
+			});	
+			function changeSavePhoto(){
+				$("#saveID").toggle();
+				$("#photoID").toggle();
+			}
+</script>
+  </body>
+</html>

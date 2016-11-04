@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DietCollectionsMapper">
+
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+
+	<!-- 根据ReservationID获取访客饮食数据 -->
+	<select id="findDietCollectionsByReservationID" parameterType="pd"
+		resultType="pd" useCache="false">
+		SELECT
+		DCID,
+		ReservationID,
+		MenuID,
+		Memo
+		FROM
+		QingdaoBigData.DietCollections
+		WHERE
+		ReservationID=#{ReservationID}
+	</select>
+
+	<!-- 插入访客的饮食数据 -->
+	<insert id="saveDietCollections" parameterType="java.util.List"
+		flushCache="false">
+		INSERT INTO QingdaoBigData.DietCollections(
+		ReservationID,
+		MenuID
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.ReservationID},
+			#{item.MenuID}
+			)
+		</foreach>
+	</insert>
+
+	<!-- 插入访客的饮食分析数据 -->
+	<insert id="saveDietResult" parameterType="pd" flushCache="false">
+		INSERT INTO QingdaoBigData.DietAnalyses(
+		ReservationID,
+		Result,
+		CreatedBy,
+		CreatedDate,
+		ModifiedBy,
+		ModifiedDate
+		)
+		VALUES
+		(
+		<choose>
+			<when test="ReservationID!=null">
+				#{ReservationID},
+			</when>
+			<otherwise>null,</otherwise>
+		</choose>
+		<choose>
+			<when test="Result!=null">
+				#{Result},
+			</when>
+			<otherwise>null,</otherwise>
+		</choose>
+		<choose>
+			<when test="CreatedBy!=null">
+				#{CreatedBy},
+			</when>
+			<otherwise>null,</otherwise>
+		</choose>
+		<choose>
+			<when test="CreatedDate!=null">
+				#{CreatedDate},
+			</when>
+			<otherwise>null,</otherwise>
+		</choose>
+		<choose>
+			<when test="ModifiedBy!=null">
+				#{ModifiedBy},
+			</when>
+			<otherwise>null,</otherwise>
+		</choose>
+		<choose>
+			<when test="ModifiedDate!=null">
+				#{ModifiedDate}
+			</when>
+			<otherwise>null</otherwise>
+		</choose>
+		)
+
+	</insert>
+</mapper>

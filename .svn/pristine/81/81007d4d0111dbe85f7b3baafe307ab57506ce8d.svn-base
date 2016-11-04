@@ -1,0 +1,102 @@
+package com.zhzg.controller;
+
+import java.util.List;
+import java.util.UUID;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.zhzg.controller.base.BaseController;
+import com.zhzg.interceptor.Token;
+import com.zhzg.service.DietCollectionsService;
+import com.zhzg.service.QuestionsService;
+import com.zhzg.service.VisitorsService;
+import com.zhzg.util.PageData;
+import com.zhzg.util.Tools;
+
+@Controller
+@RequestMapping("/diet")
+public class DietCollectionsController extends BaseController {
+	
+	@Resource(name="dietCollectionsService")
+	private DietCollectionsService dietCollectionsService;
+	@Resource(name="questionsService")
+	private QuestionsService questionsService;
+	
+	@RequestMapping("/saveDC")
+	//@Token(remove=true)
+	public ModelAndView saveDietCollections(HttpServletRequest request,HttpServletResponse response,RedirectAttributes attr){
+		PageData pd=getPageData();
+		if(pd==null){
+			attr.addFlashAttribute("msg", "页面数据为空，请重试");
+			ModelAndView mv = new ModelAndView("redirect:/visitors/error");
+			return mv;
+		}
+		
+		//TODO：页面数据不为空，校验页面数据，选择的菜单不能为空
+		if(Tools.isEmpty(pd.getString("DietCollections"))){
+			request.getSession(false).setAttribute("token", UUID.randomUUID().toString());
+			request.setAttribute("error", "您所选择的菜单为空，请重新选择");
+			return new ModelAndView("/system/dietcollection/diet","pd",pd);
+		}
+		//页面数据合法，保存访客选择的菜单
+		String url=pd.getString("url");
+		try {
+			Integer reservationId=questionsService.ReservationIdBySmartId(pd);
+			if(reservationId==null){
+				attr.addFlashAttribute("msg", "未查询到您的在馆信息，请点击下面链接，并重新放置智慧球后重试<br><a href='"+url+"'>回到餐厅首页</a>");
+				ModelAndView mv = new ModelAndView("redirect:/visitors/error");
+				return mv;
+			}
+			pd.put("ReservationID", reservationId);
+			dietCollectionsService.saveDietCollections(pd);			
+			attr.addFlashAttribute("source", "嘉宾饮食数据保存");
+			attr.addFlashAttribute("link", url);
+			ModelAndView mv = new ModelAndView("redirect:/diet/success");
+			return mv;
+		} catch (Exception e) {
+			e.printStackTrace();
+			attr.addFlashAttribute("msg", "保存数据出现问题，请返回重试<br><a href='"+url+"'></a>");
+			ModelAndView mv = new ModelAndView("redirect:/visitors/error");
+			return mv;
+		}
+		
+		
+	}
+	
+	@RequestMapping("/findAllMenus")
+	//@Token(save=true)
+	public ModelAndView findAllMenus(){
+		PageData pd=getPageData();
+		try {
+			List list=dietCollectionsService.findAllMenus();
+			ModelAndView mv=new ModelAndView("/system/dietcollection/diet","pd",list);			
+			return mv;
+		} catch (Exception e) {			
+			e.printStackTrace();
+			return new ModelAndView("/system/dietcollection/diet","pd","error");
+		}
+		
+	}
+	
+	@RequestMapping("/diet")
+	@Token(save=true)
+	public ModelAndView toDiet(){
+		return new ModelAndView("/system/dietcollection/diet");
+	}
+	
+	@RequestMapping("/success")
+	public ModelAndView success(){
+		return new ModelAndView("/system/dietcollection/dietsuccess");
+	}
+	
+	
+	
+
+}

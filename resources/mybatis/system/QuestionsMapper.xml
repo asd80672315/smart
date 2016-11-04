@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QuestionsMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+
+	
+	<!-- 通过ReservationID获取问题数据 -->
+	<select id="findQuestions" parameterType="pd" resultType="pd" useCache="false">
+		select Questions.QuestionID, 
+		Questions.Content ,
+		Options.Content ContentO,
+		QuestionnaireQuestions.QuestionnaireID
+			 from QingdaoBigData.Questions Questions,
+				QingdaoBigData.Options Options, 
+			 QingdaoBigData.QuestionnaireQuestions QuestionnaireQuestions,
+			 QingdaoBigData.Questionnaires Questionnaires
+			where Questions.QuestionID = Options.QuestionID and QuestionnaireQuestions.QuestionID = Questions.QuestionID
+			and QuestionnaireQuestions.QuestionnaireID = Questionnaires.QuestionnaireID
+			and Questionnaires.State = 1
+
+	</select>
+	
+	<!-- 通过ReservationID获取问卷回答数据 -->
+	<select id="findQuestionsColl" parameterType="pd" resultType="pd" useCache="false">
+		select ReservationID,
+		QuestionnaireID,
+		QuestionID,
+		Answer
+		from QingdaoBigData.questionnairecollections
+		where ReservationID = #{ReservationID}
+	
+	</select>
+	<!-- 关联访客和问卷-->
+	<update id="relationQuestions" parameterType="pd" flushCache="false">
+		update QingdaoBigData.Visitors set 
+		QuestionnaireID = 		
+		<choose>
+		 	<when test="QuestionnaireID!=null">
+		 		#{QuestionnaireID}
+		 	</when>
+		 	<otherwise>null</otherwise>
+		 </choose>		  
+		where SmartBallID = #{SmartBallID}
+		and State = 2
+	</update>
+	<!-- 问卷结果保存-->
+	<insert id="saveQuestions" parameterType="pd" flushCache="false">
+		insert into QingdaoBigData.QuestionnaireCollections (
+			ReservationID,
+			QuestionnaireID,
+			QuestionID,
+			Answer)
+			values
+			<!-- <foreach collection="list" item="item" index="index" separator="," > -->  
+		    (
+			#{ReservationID},
+			#{QuestionnaireID},
+			#{QuestionID},
+			#{Answer}
+			)
+		    <!-- </foreach> -->  
+  			 
+	</insert>
+</mapper>

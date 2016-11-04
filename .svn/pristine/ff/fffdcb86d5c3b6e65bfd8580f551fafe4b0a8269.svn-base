@@ -1,0 +1,27 @@
+package test;
+
+import javax.annotation.Resource;
+
+import org.junit.Test;
+import org.springframework.stereotype.Controller;
+
+import com.zhzg.controller.base.BaseController;
+import com.zhzg.service.DietCollectionsService;
+import com.zhzg.service.VisitorsService;
+import com.zhzg.util.PageData;
+
+@Controller
+public class DietTest extends BaseController {
+	@Resource(name = "visitorsService")
+	private VisitorsService visitorsService;
+	
+	
+	@Test
+	public void testFindMenus() throws Exception{
+		PageData pd=new PageData();
+		pd.put("ReservationID", "1607200028");
+		
+		
+		System.out.println(visitorsService.findByReservationID(pd));
+	}
+}

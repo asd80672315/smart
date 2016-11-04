@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MenusMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+    
+    <resultMap type="com.zhzg.entity.system.Menu" id="findAllMenus">
+    	<!-- menu菜单信息 -->
+    	<id column="MenuID" property="menuid"/>
+    	<result column="MenuName" property="name"/>
+    	<result column="MenuCuisine" property="cuisine"/>
+    	<result column="MenuType" property="type"/>
+    	
+    	<!-- batches配料信息 -->
+    	<collection property="batchList" ofType="com.zhzg.entity.system.Batch">
+    		<id column="BatchID" property="batchid"></id>
+    		<result column="MenuID1" property="menuid"/>
+    		<result column="BatchType" property="type"/>
+    		<result column="BatchCount" property="count"/>
+    		<result column="BatchOrder" property="order"/>
+    		
+    		<!-- material原料信息 -->
+    		<association property="materialDetail" javaType="com.zhzg.entity.system.Material">
+    			<id column="MaterialID" property="materialid"/>
+    			<result column="MaterialName" property="name"/>
+    			<result column="MaterialUnit" property="unit"/>
+    			<result column="MaterialQuantity" property="quantity"/>    		
+    		</association>    	
+    	</collection>    
+    </resultMap>
+    	
+	<!-- 获取所有Menu数据 -->
+	<select id="findAllMenus" parameterType="pd" resultMap="findAllMenus" useCache="false">
+		SELECT 
+			menu.MenuID AS MenuID,
+			menu.Name AS MenuName,
+			menu.Cuisine AS MenuCuisine,
+			menu.Type AS MenuType,
+			b.BatchID AS BatchID,
+			b.MenuID AS MenuID1, 
+			b.Type 	AS BatchType,
+			b.Count AS BatchCount,
+			b.Order AS BatchOrder,
+			mat.MaterialID AS MaterialID,
+			mat.Name AS MaterialName,
+			mat.Unit AS MaterialUnit,
+			mat.Quantity AS MaterialQuantity	
+		FROM 
+			QingdaoBigData.Menus menu
+			JOIN Batches b ON menu.MenuID=b.MenuID
+			JOIN Materials mat ON b.BatchID=mat.MaterialID
+	</select>
+	
+	<!-- 根据MenuID获取Menu数据 -->
+	<select id="findMenusByMenuID" parameterType="pd" resultType="pd" useCache="false">
+		SELECT 
+			MenuID,
+			Name,
+			Cuisine,
+			Type,
+			Memo,
+			CreatedBy,
+			ModifiedBy			
+		FROM 
+			QingdaoBigData.Menus
+		WHERE
+			MenuID=#{MenuID}
+	</select>
+	
+</mapper>

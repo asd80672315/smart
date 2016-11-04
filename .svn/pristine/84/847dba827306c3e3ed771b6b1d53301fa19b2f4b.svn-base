@@ -1,0 +1,25 @@
+package com.zhzg.service;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.zhzg.dao.impl.DaoSupport;
+import com.zhzg.util.PageData;
+
+@Service("itemCollectionService")
+public class ItemCollectionService {
+
+	@Resource(name="daoSupport")
+	private DaoSupport dao;
+	
+	public void saveItemCollection(PageData pd) throws Exception {
+		dao.save("ItemCollectionMapper.saveItemCollection", pd);
+		
+	}
+	
+	public void updateItemCollectionByReservationId(PageData pd) throws Exception{
+		dao.update("ItemCollectionMapper.updateItemCollectionByReservationId", pd);
+	}
+	
+}

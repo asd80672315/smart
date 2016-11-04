@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ItemCollectionMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+    	
+	<!-- 新增访客交互项目记录 -->
+	<insert id="saveItemCollection" parameterType="pd" flushCache="false">
+	
+	INSERT INTO 
+		ItemCollections(
+			No,
+			ReservationID,
+			BeginDatetime,
+			EndDatetime
+		)
+		VALUES
+		(#{No},
+		 #{ReservationID},
+		 #{BeginDatetime},
+		 #{EndDatetime}
+		)	
+	</insert>
+	
+	
+	<update id="updateItemCollectionByReservationId">
+		UPDATE
+			ItemCollections
+		SET
+			EndDateTime=#{EndDatetime}
+		WHERE
+			ReservationID=#{ReservationID}
+	
+	</update>
+</mapper>

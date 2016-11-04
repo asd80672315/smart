@@ -1,0 +1,698 @@
+html,body {
+	font-size: 62.5%;
+	padding: 0;
+	margin: 0;
+  height:100%;
+  width: 100%;
+  font-family:Arial,'Times New Roman','Microsoft YaHei',SimHei;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;	/* 没有下划线 */
+}
+
+/*========index.jsp========*/
+.mainSection{
+  background: url(/smart/static/img/1.jpg) no-repeat top fixed;
+  overflow:hidden;
+  -webkit-background-size: cover; 
+  -moz-background-size: cover; 
+  -o-background-size: cover; 
+  background-size: cover;
+  /*
+  * 一个对象高度是否可以使用百分比显示，取决于对象的父级对象。
+  * auto是随内容的高度而撑开的。100%是根据父级元素的高度来决定的。
+  */
+  height: 100%;
+  width: 100%;
+}
+
+.mainSection #rowmainSectionHeader{
+	margin-top:12%;
+}
+.mainSection #rowmainSectionHeader h1 { 
+  font-size: 9em;  
+  font-weight: 6me; 
+  color: #fff;
+  text-align: center;
+}
+
+.mainSection #rowmainSectionHeader p { 
+  font-size: 8em; 
+  font-weight: 3em; 
+  color: #fefefe;
+  text-align: center;
+}
+
+.mainSection #rowmainSectionButton{
+	margin-top:6%;
+	text-align:center;
+}
+.mainSection #rowmainSectionButton .btnmainSection{
+  background: rgba(61, 201, 179, 1); 
+  border-radius: 5px; 
+  -moz-border-radius: 5px; 
+  -webkit-border-radius: 5px; 
+  -o-border-radius: 5px; 
+  color: #fff; 
+  text-transform: uppercase; 
+  letter-spacing: 1px; 
+  display: inline-block; 
+  -webkit-box-shadow: 0px 3px 0px 0px #309383; 
+  -moz-box-shadow: 0px 3px 0px 0px #309383; 
+  box-shadow: 0px 3px 0px 0px #309383; 
+  font-weight: bold; 
+}
+
+.mainSection #rowmainSectionButton .btnmainSection:hover, .mainSection #rowmainSectionButton .btnmainSection:focus { 
+  background: rgba(61, 201, 179, 0.6); 
+  color: #fff; 
+}
+
+/*!========index.jsp========*/
+
+/*========reservation_personal.jsp========*/
+
+/* ----- Navigator ----- */
+.navbar{
+	z-index: 9999;
+  background-color:rgba(76,94,108,0.8);
+  opacity:0.8;
+  filter:Alpha(opacity=50);/* IE8 以及更早的浏览器 */
+	box-shadow:0px 0px 20px rgba(0, 0, 0, 0.1);
+  height:6em;
+}
+
+.navbar .navbar-header .navbar-brand{
+  padding-left: 5em;
+}
+
+.navbar .navbar-header .navbar-brand img {
+	width:auto;
+  height:2.5em;
+}
+
+.navbar .collapse ul li a{
+	font-size: 3em;
+  color: #fff;
+	text-transform: Capitalize;
+  line-height:2.5em;
+	font-weight: 700;
+}
+
+.navbar .collapse ul li a:hover{
+  background-color:rgba(76,94,108,0);
+}
+
+
+.navbar-right{
+  padding-right: 5%;
+}
+
+/*! ----- Navigator ----- */
+
+/* ----- Registration Form ----- */
+
+strong { font-weight: 700; }
+.red { color: #00bc8f; }
+
+.register{
+  margin-top:71px;
+  margin-bottom: 10px;
+  width:600px;
+}
+
+.register .formRegister {
+	padding: 10px 30px 20px 30px;
+	background: #f8f8f8 url(/smart/static/img/pattern.jpg) left top repeat;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	-moz-box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+	-webkit-box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+	box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+	text-align: center;
+	font-size:2.4em;
+}
+
+.register .formRegister h2 {
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+  background: url(/smart/static/img/pencil.png) 70px 6px no-repeat;
+  border-bottom: 2px dotted #bbb;
+  font-size: 2.3em;
+  font-weight: 400;
+  text-align: center;
+}
+.register .formRegister .form-group{
+  margin-top: 5%; 
+}
+
+.register .formRegister label span {
+	font-style: italic;
+}
+
+.register .formRegister input:-moz-placeholder { color: #aaa; }
+.register .formRegister input:-ms-input-placeholder { color: #aaa; }
+.register .formRegister input::-webkit-input-placeholder { color: #aaa; }
+
+.register .formRegister button {
+    cursor: pointer;
+    width: 60%;
+    height: 42px;
+    margin-top: 25px;
+    padding: 0;
+    background: #4b5e6c;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: 0;
+    -moz-box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;
+    -webkit-box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;
+    box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;
+    text-shadow: 0 1px 2px rgba(0,0,0,.1);
+    -o-transition: all .2s;
+    -moz-transition: all .2s;
+    -webkit-transition: all .2s;
+    -ms-transition: all .2s;
+    text-align:center;
+    color:#fff;
+}
+
+.requiredInputForm{
+	color:#f00;
+	margin-right:15px;
+}
+
+.popover{
+	width:300px;
+	height:57px;
+	
+}
+
+.register .formRegister button a{
+	color:#fff;
+}
+
+nav .navbar-right{
+  line-height:3.5em;
+  margin-right:1%;
+}
+
+/*! ----- Registration Form ----- */
+
+/*!========reservation_personal.jsp========*/
+
+
+
+/*========receptionist.jsp========*/
+
+/* ----- Navigator ----- */
+.navbar .collapse #chooseDisplay{
+	margin-left:100px;
+}
+
+.navbar .collapse #ReservationID{
+	margin-top:10px;
+	margin-left:200px;
+	width:280px;
+}
+
+.navbar .collapse #searchNavForm button{
+	margin-left:-42px;
+	border:none;
+	margin-top:11px;
+}
+
+.navbar .collapse #searchNavForm a:hover, .navbar .collapse #searchNavForm a:focus{
+	background-color:#fff;
+}
+
+.glyphicon{
+	top:2px;
+}
+
+.msg{
+	float:right;
+	margin-top:-35px;
+	color:yellow;
+	font-size:2.5em;
+}
+
+/*! ----- Navigator ----- */
+
+/* ----- Registration Form ----- */
+.myContainer{
+  font-size:2.6em;
+}
+
+.myContainer #personalForm{
+	margin:8% auto;
+	width:80%;
+}
+
+.myContainer #groupForm{
+	margin:8% auto;
+	width:80%;
+}
+.myContainer .myform{
+  padding: 30px 30px 20px 0;
+	background: #f8f8f8 url(/smart/static/img/pattern.jpg) left top repeat;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	-moz-box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+	-webkit-box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+	box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+	text-align: center;
+}
+
+.myContainer .myform button{
+  cursor: pointer;
+    width: 25%;
+    height: 42px;
+    margin-top: 25px;
+    padding: 0;
+    background: #4b5e6c;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: 0;
+    -moz-box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;
+    -webkit-box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;
+    box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;
+    text-shadow: 0 1px 2px rgba(0,0,0,.1);
+    -o-transition: all .2s;
+    -moz-transition: all .2s;
+    -webkit-transition: all .2s;
+    -ms-transition: all .2s;
+    text-align:center;
+    color:#fff;
+}
+
+.myContainer .myform button a{
+  color: #fff;
+}
+
+#groupForm .form-group{
+  margin-left: 100px;
+}
+
+.input-group[class*=col-] {
+	padding-left: 15px;
+	padding-right:18px;
+}
+
+
+/*========reservationsuccess.jsp========*/
+#container{
+  background:url(../img/gradient.jpg);
+  background-size:cover;
+  position:relative;
+  width:100%;
+  height:100%;
+  color:#fff;
+}
+
+#container .overlay{
+  position:absolute;
+  top:0;
+  left;0;
+  width:100%;
+  height:100%;
+  background:url(../img/overlay.png);
+}
+
+.reservationSuccess{
+	margin-top:5%;
+	margin-left:15%;
+	font-size:8em;
+	font-weight:500;
+}
+
+.reservationInfo{
+	margin-left:15%;
+	font-size:4em;
+}
+
+.reservationNumber{
+	font-size:2.5em;
+	color:#f00;
+}
+
+.backToReceptionist{
+	color:#fff;
+	margin-left:15%;
+	font-size:5em;
+}
+
+#tmpTest{
+	margin-top:50%;
+}
+/*! ----- Registration Form ----- */
+
+/*ball.jsp*/
+
+.myMedia{
+	margin:0 auto;
+	padding:0;
+	position:relative;
+	width: 360px;
+	height:480px;
+	border:2px solid;
+}
+
+#divVideo, #divSnap{
+	padding:0;
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+}
+
+#divVideo{
+	display: block;
+}
+
+#divSnap{
+	display: none;
+}
+
+.myLable{
+	height:20px;
+}
+
+#buttonPhoto{
+	text-align:center;
+	margin-top:30px;
+	width: 360px;
+	background: #4b5e6c;
+	color:#fff;
+}
+
+#myform_photo{
+	padding-top: 20px;
+	padding-bottom:7px;
+	background-color: rgba(246,246,246,0.6);
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	-moz-box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+	-webkit-box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+	box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+	text-align: center;
+	font-size:2.4em;
+}
+
+.myRightPhoto{
+	float: right;
+}
+
+.myPhotoLabel{
+	margin-top: 10px;
+	margin-left:20px;
+}
+#myform_photo .form-group{
+	margin-left: -80px;
+}
+
+#myform_photo #saveButton{
+		cursor: pointer;
+    width: 30%;
+    height: 42px;
+    padding: 0;
+    background: #4b5e6c;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: 0;
+    -moz-box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;
+    -webkit-box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;
+    box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;
+    text-shadow: 0 1px 2px rgba(0,0,0,.1);
+    -o-transition: all .2s;
+    -moz-transition: all .2s;
+    -webkit-transition: all .2s;
+    -ms-transition: all .2s;
+    text-align:center;
+    color:#fff;
+}
+
+/*======questionnaire.jsp======*/
+
+#section1{
+  background:url(../img/backgrounds/1.jpg) no-repeat center fixed;
+  -webkit-background-size: cover; 
+  -moz-background-size: cover; 
+  -o-background-size: cover; 
+  background-size: cover;
+  width:100%;
+  height:100%;
+}
+
+.mySection .panel{
+  margin-top:9.5%;
+}
+
+.mySection .panel .panel-heading{
+  font-size: 9em;
+  font-weight:550;
+}
+
+.mySection .panel .panel-body{
+  font-size: 5em;
+}
+
+.mySection .panel .panel-body input{
+  display: block;
+  margin: 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.mySection .panel .panel-body span{
+  margin-left: 2em;
+}
+
+.mySection .panel .panel-footer{
+	text-align:right;
+	padding-right:70px;
+}
+
+.mySection .panel .panel-footer .btn{
+	margin:0 10px;
+}
+
+#section2{
+  background:url(../img/backgrounds/2.jpg) no-repeat center fixed;
+  -webkit-background-size: cover; 
+  -moz-background-size: cover; 
+  -o-background-size: cover; 
+  background-size: cover;
+  width:100%;
+  height:100%;
+}
+
+
+
+
+
+#containerIDCard{
+	margin:0 auto;
+	width:560px;
+}
+
+#HPELogoIDCard{
+	margin-left:60%;
+}
+
+#containerIDCard #mainFutureID{
+	margin:0 auto;
+	width:460px;
+}
+
+#mainFutureID #imgFutureIDPerson{
+	float:left;
+}
+
+#mainFutureID #mainInfoContent{
+	float:left;
+	margin-left:30px;
+}
+
+.infoContent{
+	margin-top:10px;
+	margin-left:20px;
+	font-size:2.5em;
+	font-weight:600;
+}
+
+.StopTmeIDCard{
+	clear:both;
+	margin-top:20px;
+	font-size:2.5em;
+	font-weight:700;
+}
+
+.divStopTime{
+	clear:both;
+	margin-top:5px;
+}
+
+.divStopTime .areaStopTime{
+	float:left;
+	font-size:2.4em;
+	font-weight:600;
+	margin-right:20px;
+}
+
+.divStopTime #cityStopTimeHeader{
+	float:left;
+	width:20px;
+	height:10px;
+	border:2px solid #a5d7c9;
+	margin-top:5px;
+	margin-right:20px;
+}
+
+.divStopTime #cityStopTimeBlock{
+	float:left;
+	width:300px;
+	height:0.8em;
+	margin-top:5px;	
+	background-color:#656565;
+	border:1px solide #656565;
+	-moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+}
+
+.divStopTime #lifeStopTimeHeader{
+	float:left;
+	width:19px;
+	height:9px;
+	background-color:#dfdfdf;
+	margin-top:5px;
+	margin-right:20px;
+}
+
+.divStopTime #lifeStopTimeBlock{
+	float:left;
+	width:300px;
+	height:0.8em;
+	margin-top:5px;	
+	background-color:#656565;
+	border:1px solide #656565;
+	-moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+}
+
+.divStopTime #farmStopTimeHeader{
+	float:left;
+	width:19px;
+	height:9px;
+	background-color:#7bd1b7;
+	margin-top:5px;
+	margin-right:20px;
+}
+
+.divStopTime #farmStopTimeBlock{
+	float:left;
+	width:300px;
+	height:0.8em;
+	margin-top:5px;	
+	background-color:#656565;
+	border:1px solide #656565;
+	-moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+}
+
+.divStopTime #healthStopTimeHeader{
+	float:left;
+	width:19px;
+	height:9px;
+	background-color:#cdeee5;
+	margin-top:5px;
+	margin-right:20px;
+}
+
+.divStopTime #healthStopTimeBlock{
+	float:left;
+	width:300px;
+	height:0.8em;
+	margin-top:5px;	
+	background-color:#656565;
+	border:1px solide #656565;
+	-moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+}
+
+.divStopTime #hireStopTimeHeader{
+	float:left;
+	width:20px;
+	height:10px;
+	border:2px solid #e0e0e0;
+	margin-top:5px;
+	margin-right:20px;
+}
+
+.divStopTime #hireStopTimeBlock{
+	float:left;
+	width:300px;
+	height:0.8em;
+	margin-top:5px;	
+	background-color:#656565;
+	border:1px solide #656565;
+	-moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+}
+
+#logoBottom{
+	margin-top:15px;
+}
+
+#logoBottom img{
+	width:70%;
+	height:auto;
+}
+
+
+#imgFutureID{
+	margin-left:60%;
+}
+
+
+
+
+#formOriginalityCollections{
+	margin-top:7%;
+	padding:20px 0;
+	background: #f8f8f8 url(/smart/static/img/pattern.jpg) left top repeat;
+	-moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.test{
+	background: #f8f8f8 url(/smart/static/img/pattern.jpg) left top repeat;
+}
+
+#formOriginalityCollections .labelOriginalityCollections{
+	font-size:2.5em;
+}
+
+
+
+.jumbotron{
+	margin-top:73px;
+	margin-left:50px;
+	margin-right:50px;
+	background-color:#fff;
+}
+
+.tagline{
+}
+

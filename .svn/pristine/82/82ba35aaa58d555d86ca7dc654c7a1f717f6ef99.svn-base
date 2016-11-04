@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="VisitorsMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+
+	
+	<!-- 通过ReservationID获取访客数据 -->
+	<select id="findByReservationID" parameterType="pd" resultType="pd" useCache="false">
+		select 
+			VisitorID          ,
+			SmartBallID        ,
+			ReservationID      ,
+			Name               ,
+			Sex                ,
+			Age                ,
+			Phone              ,
+			Mail               ,
+			IndustryID         ,
+			OccupationID       ,
+			PositionID         ,
+			Organization       ,
+			Region             ,
+			Type               ,
+			State              ,
+			URL                ,
+			VisitDate          ,
+			QuestionnaireID    ,
+			Memo               ,
+			CreatedBy          ,
+			CreatedDate        ,
+			ModifiedBy         ,
+			ModifiedDate       
+		from 
+			Visitors
+		where 
+			ReservationID = #{ReservationID}
+	</select>
+		
+	<!-- 根据智慧球id获取预约id -->	
+	<select id="findReservationIdBySmartId" parameterType="pd" resultType="Integer" useCache="false">
+	SELECT ReservationID FROM Visitors WHERE
+	SmartBallID=#{SmartBallID} AND
+	State=2
+	
+	</select>	
+	
+	<!-- 生成未来身份证信息 -->
+	<select id="findIDInformation" parameterType="pd" resultType="pd" useCache="false">
+		SELECT
+			Name, 
+			Sex, 
+			Age, 
+			Phone,
+			SmartBallID 
+		FROM
+			Visitors
+		WHERE 
+			SmartBallID=#{SmartBallID} AND
+			State=2
+	    ORDER BY CreatedDate DESC
+	    LIMIT 1			
+		
+	</select>
+	
+	<!-- 查询最大的visitorid -->
+	<select id="findMaxVisitorId" parameterType="pd" resultType="int" useCache="false">
+		SELECT
+			max(VisitorID)
+		FROM
+			Visitors 
+	</select>
+	
+	<!-- 新增访客-->
+	<insert id="saveVisitor" parameterType="pd" flushCache="false">
+		insert into Visitors (
+			VisitorID,
+			SmartBallID,
+			ReservationID,
+			Name,
+			Sex,
+			Age,
+			Phone,
+			Mail,
+			IndustryID,
+			OccupationID,
+			PositionID,
+			Organization,
+			Region,
+			Type,
+			State,
+			URL,
+			VisitDate,
+			QuestionnaireID,
+			Memo,
+			CreatedBy,
+			CreatedDate,
+			ModifiedBy,
+			ModifiedDate
+		) values (
+			#{VisitorID},
+			#{SmartBallID},
+			#{ReservationID},
+			#{Name},
+			#{Sex},
+			#{Age},
+			#{Phone},
+			#{Mail},
+			#{IndustryID},
+			#{OccupationID},
+			#{PositionID},
+			#{Organization},
+			#{Region},
+			#{Type},
+			#{State},
+			#{URL},
+			#{VisitDate},
+			#{QuestionnaireID},
+			#{Memo},
+			#{CreatedBy},
+			#{CreatedDate},
+			#{ModifiedBy},
+			#{ModifiedDate}
+		)
+	</insert>
+<!-- 团体访客 批量新增 -->
+	<insert id="saveVisitors" parameterType="java.util.List" flushCache="false">
+		insert into Visitors (
+			VisitorID          ,
+			SmartBallID        ,
+			ReservationID      ,
+			Name               ,
+			Sex                ,
+			Age                ,
+			Phone              ,
+			Mail               ,
+			IndustryID         ,
+			OccupationID       ,
+			PositionID         ,
+			Organization       ,
+			Region             ,
+			Type               ,
+			State              ,
+			URL                ,
+			VisitDate          ,
+			QuestionnaireID    ,
+			Memo               ,
+			CreatedBy          ,
+			CreatedDate        ,
+			ModifiedBy         ,
+			ModifiedDate      )
+			values
+			<foreach collection="list" item="item" index="index" separator="," >  
+		    (
+		    #{item.VisitorID},
+			#{item.SmartBallID},
+			#{item.ReservationID},
+			#{item.Name},
+			#{item.Sex},
+			#{item.Age},
+			#{item.Phone},
+			#{item.Mail},
+			#{item.IndustryID},
+			#{item.OccupationID},
+			#{item.PositionID},
+			#{item.Organization},
+			#{item.Region},
+			#{item.Type},
+			#{item.State},
+			#{item.URL},
+			#{item.VisitDate},
+			#{item.QuestionnaireID},
+			#{item.Memo},
+			#{item.CreatedBy},
+			#{item.CreatedDate},
+			#{item.ModifiedBy},
+			#{item.ModifiedDate} 
+			)
+		    </foreach>  
+  			 
+	</insert>
+	
+	<!-- 更新访客信息， -->
+	<update id="updateVisitorByID" parameterType="pd" flushCache="false">
+		UPDATE visitors SET
+			VisitorID=#{VisitorID},
+			SmartBallID=#{SmartBallID},
+			ReservationID=#{ReservationID},
+			Name=#{Name},
+			Sex=#{Sex},
+			Age=#{Age},
+			Phone=#{Phone},
+			Mail=#{Mail},
+			IndustryID=#{IndustryID},
+			OccupationID=#{OccupationID},
+			PositionID=#{PositionID},
+			Organization=#{Organization},
+			Region=#{Region},
+			Type=#{Type},
+			State=#{State},
+			URL=#{URL},
+			VisitDate=#{VisitDate},
+			QuestionnaireID=#{QuestionnaireID},
+			Memo=#{Memo},
+			ModifiedBy=#{ModifiedBy},
+			ModifiedDate=#{ModifiedDate} 
+			WHERE
+			VisitorID=#{VisitorID}
+	</update>
+	
+	
+	<update id="updateVisitorState" parameterType="pd" flushCache="false">
+		UPDATE Visitors SET 
+		State=3
+		WHERE
+		SmartBallID=#{SmartBallID} AND
+		State=2
+	</update>
+</mapper>

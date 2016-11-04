@@ -1,0 +1,14 @@
+picPath=c\:\\test\\
+mmsusername=hpjngj
+imageformat=gif
+mmspwd=hpjngj123
+subject=\u9884\u7EA6\u9A8C\u8BC1\u4E8C\u7EF4\u7801
+mmsurl=http\://service.caixinbao.cn/sendMMS
+smsurl=http\://service.caixinbao.cn/sendSMS
+appkey=23402889
+appsecret=35bfa356e0123c7dcc76b7ee0f639172
+aliurl=http\://gw.api.taobao.com/router/rest
+alitemplate=SMS_12155083
+alisignature=\u9A8C\u8BC1\u7801
+VIP=88888888
+defaultPicData=yyyyyyy

@@ -1,0 +1,394 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>菜单</title>
+
+    <!-- Bootstrap -->
+    <link href="${pageContext.request.contextPath }/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">    
+    <link href="${pageContext.request.contextPath }/static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link href="${pageContext.request.contextPath }/static/css/swiper-3.3.1.min.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath }/static/css/bootstrap-toggle.min.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath }/static/css/style.css" rel="stylesheet" />
+
+		<script src="${pageContext.request.contextPath }/static/jquery/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath }/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath }/static/js/bootstrap-toggle.min.js"></script>
+		<script src="${pageContext.request.contextPath }/static/js/jquery.backstretch.min.js"></script>
+		<script src="${pageContext.request.contextPath }/static/js/tmp.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+   	<style>
+        body {
+            background: #fff;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .swiper-wrapper{
+        	height:394px;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff; 
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        
+    </style>
+
+    <style type="text/css">
+        body {
+            padding-top: 50px;
+            font-family: 'microsoft yahei',Arial,sans-serif;
+        }
+
+        /* 定义thumbnail */
+
+        .thumbnail {
+            position: relative;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        /* 定义图片说明 */
+        .caption {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.6);
+            width: 100%;
+            height: 100%;
+            padding: 2%;
+            display: none;
+            text-align: center;
+            color: #fff !important;
+            z-index: 1;
+        }
+
+        /* 定义按钮 */
+        .biglabel {
+            font-size: 15px;
+            font-weight: 300;
+        }
+    </style>
+  </head>
+  
+  <body>
+     <div class="container">
+		<!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    	<div class="container-fluid">
+      	<div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="navbar-brand" >
+            <img src="${pageContext.request.contextPath }/static/img/HPE_log_left_wht.png" alt="惠普Logo">
+          </div>
+        </div><!-- div class="navbar-header" -->
+      </div><!-- /.container-fluid -->
+    </nav><!-- /Navigation --> 
+        <!-- <input type="hidden" name="token" value="${token}" /> -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="page-header">
+                        <h1><span class="glyphicon glyphicon-glass"></span>&nbsp;请选择菜单！</h1>
+                    </div>
+                    <!-- Swiper -->
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">金枪鱼生菜沙拉</div>
+                                    <div class="panel-body">
+                                        <div class="thumbnail">
+                                            <div class="caption">
+                                                <div class="widget-content nopadding" style="font-family:'Microsoft YaHei'; font-size:14px; text-align:left; color:rgb(76, 164, 76);">
+                                                    <h4>成分</h4>
+                                                    <ul>
+                                                        <li>生菜(叶用莴苣) 100g 13大卡</li>
+                                                        <li>生菜(牛莉) 100g 15大卡</li>
+                                                        <li>樱桃番茄 10颗 39大卡</li>
+                                                        <li>胡萝卜 25g 6.25大卡</li>
+                                                        <li>鸡蛋 1只(中) 76大卡</li>
+                                                        <li>乳黄瓜 50克 16大卡</li>
+                                                        <li>冠礼香草沙拉酱 50克 22.5大卡</li>
+                                                        <li>雄鸡标金枪鱼沙拉酱 100克 176大卡</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <img src="${pageContext.request.contextPath }/static/img/01.jpg" class="img-responsive">
+                                        </div>
+                                    </div>
+                                    <div style="margin: 0 15px 13px 15px; text-align: left;">
+                                        <input type="checkbox" name="menus" value="1" data-toggle="toggle" data-on="已选" data-off="未选" data-onstyle="success" data-offstyle="danger" data-width=100% data-height="20">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">中式小炒</div>
+                                    <div class="panel-body">
+                                        <div class="thumbnail">
+                                            <div class="caption">
+                                                <div class="widget-content nopadding" style="font-family:'Microsoft YaHei'; font-size:14px; text-align:left; color:rgb(76, 164, 76);">
+                                                    <h4>成分</h4>
+                                                    <ul>
+                                                        <li>米饭 250g 290大卡</li>
+                                                        <li>素炒小白菜 100g 48.5大卡</li>
+                                                        <li>烤鳕鱼 100g 96大卡</li>
+                                                        <li>红豆汤(无糖) 100g 39大卡</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <img src="${pageContext.request.contextPath }/static/img/02.jpg" class="img-responsive">
+                                        </div>
+                                    </div>
+                                    <div style="margin: 0 15px 13px 15px; text-align: left;">
+                                        <input type="checkbox" name="menus" value="2" data-toggle="toggle" data-on="已选" data-off="未选" data-onstyle="success" data-offstyle="danger" data-width=100% data-height="20">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">红烧牛肉面</div>
+                                    <div class="panel-body">
+                                        <div class="thumbnail">
+                                            <div class="caption">
+                                                <div class="widget-content nopadding" style="font-family:'Microsoft YaHei'; font-size:14px; text-align:left; color:rgb(76, 164, 76);">
+                                                    <h4>成分</h4>
+                                                    <ul>
+                                                        <li>有机拉面 100g 358.51大卡</li>
+                                                        <li>红烧牛肉萝卜 100g 65大卡</li>
+                                                        <li>四川泡茶 100g 55大卡</li>
+                                                        <li>茶叶蛋 100g 144大卡</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <img src="${pageContext.request.contextPath }/static/img/03.jpg" class="img-responsive">
+                                        </div>
+                                    </div>
+                                    <div style="margin: 0 15px 13px 15px; text-align: left;">
+                                        <input type="checkbox" name="menus" value="3" data-toggle="toggle" data-on="已选" data-off="未选" data-onstyle="success" data-offstyle="danger" data-width=100% data-height="20">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">五谷杂粮</div>
+                                    <div class="panel-body">
+                                        <div class="thumbnail">
+                                            <div class="caption">
+                                                <div class="widget-content nopadding" style="font-family:'Microsoft YaHei'; font-size:14px; text-align:left; color:rgb(76, 164, 76);">
+                                                    <h4>成分</h4>
+                                                    <ul>
+                                                        <li>五谷杂粮饭 250g 211大卡</li>
+                                                        <li>土豆烧牛肉 200g	260大卡</li>
+                                                        <li>白灼芥兰 100g 61大卡</li>
+                                                        <li>小葱拌豆腐 50g 43大卡</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <img src="${pageContext.request.contextPath }/static/img/04.jpg" class="img-responsive">
+                                        </div>
+                                    </div>
+                                    <div style="margin: 0 15px 13px 15px; text-align: left;">
+                                        <input type="checkbox" name="menus" value="4" data-toggle="toggle" data-on="已选" data-off="未选" data-onstyle="success" data-offstyle="danger" data-width=100% data-height="20">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">西餐</div>
+                                    <div class="panel-body">
+                                        <div class="thumbnail">
+                                            <div class="caption">
+                                                <div class="widget-content nopadding" style="font-family:'Microsoft YaHei'; font-size:14px; text-align:left; color:rgb(76, 164, 76);">
+                                                    <h4>成分</h4>
+                                                    <ul>
+                                                        <li>菲力牛排(煎) 200g 152大卡</li>
+                                                        <li>西蓝花(水煮) 100g 33大卡</li>
+                                                        <li>烤土豆 100g 65大卡</li>
+                                                        <li>意式罗宋汤 100g 34大卡</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <img src="${pageContext.request.contextPath }/static/img/06.jpg" class="img-responsive">
+                                        </div>
+                                    </div>
+                                    <div style="margin: 0 15px 13px 15px; text-align: left;">
+                                        <input type="checkbox" name="menus" value="5" data-toggle="toggle" data-on="已选" data-off="未选" data-onstyle="success" data-offstyle="danger" data-width=100% data-height="20">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+
+                    <div>
+                    <form action="${pageContext.request.contextPath }/diet/saveDC" method="post">
+                        <button type="submit"  class="btn btn-primary center-block" id="btnResult" onclick="return callWaring()">查看结果</button>
+                    </form>
+                    </div>
+                    
+
+                    <!-- 模态框开始 -->
+                    <div class="modal fade" id="myModal" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" onclick="callWaring('hide')">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">菜单选择</h4>
+                                </div>
+                                <div class="modal-body">
+                                    请先选择您喜欢的菜单，然后查看结果！
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-warning" onclick="callWaring('hide')">关闭</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 模态框结束 -->
+                </div>
+            </div>
+    </div>
+   
+   
+    <script src="${pageContext.request.contextPath }/static/js/swiper-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        /* 生成工具提示 */
+        $('[rel="tooltip"]').tooltip();
+
+        /* 生成鼠标悬浮滑动展示图片说明 */
+        $('.thumbnail').hover(
+          function () {
+              //鼠标进入
+              //$(this).find('.caption').slideDown(300);
+              $(this).find('.caption').fadeIn(500);
+          },
+          function () {
+              //鼠标离开
+              //$(this).find('.caption').slideUp(300);
+              $(this).find('.caption').fadeOut(500);
+          }
+        );
+    </script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            loop: false,
+            pagination: '.swiper-pagination',
+            slidesPerView: 3,
+            paginationClickable: true,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            spaceBetween: 30,
+            freeMode: true
+        });
+
+        function callWaring(state) {
+        		var s="";
+        		var tmp=1;
+            var menus = document.getElementsByName("menus");
+            var selected = false;
+            for (var i = 0; i < menus.length; i++) {
+                if (menus[i].checked) {
+                    selected = true;
+                    if(tmp == 1){
+                    	s = menus[i].value;
+                    }else{
+                    	s += "," + menus[i].value;
+                    }
+                    tmp++;
+                }
+            }
+						
+            
+            if (selected == false) {
+                $('#myModal').modal(state);
+                return false;
+            }
+			
+            //在表单中创建字段
+            $("<input>",{
+            	type:"hidden",
+            	name:"url",
+            	val:"/smart/diet/diet"
+            	
+            }).appendTo("form");
+            
+            $("<input>",{
+            	type:"hidden",
+            	name:"DietCollections",
+            	val:s
+            	
+            }).appendTo("form");
+            
+            $("<input>",{
+            	type:"hidden",
+            	name:"SmartBallID",
+            	val:"simulate12"
+            	
+            }).appendTo("form");
+            
+            
+            /* $.ajax({
+            	type: "POST",
+            	url: "${pageContext.request.contextPath }/diet/saveDC",
+            	dataType: "json",
+            	data: {
+            					DietCollections:s, 
+            					SmartBallID:"simulate12",
+            					url:"/smart/diet/diet"
+            				} ,
+            	success:function(data){
+            		alert(data);
+            	},
+            	error:function(data){
+            		alert(data);
+            	} 
+            }); */
+            
+           
+            return true;
+        }
+        
+    </script>
+  </body>
+</html>

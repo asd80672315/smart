@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QuestionsMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+
+	
+	<!-- 通过ReservationID获取问题数据 -->
+	<select id="findQuestions" parameterType="pd" resultType="pd" useCache="false">
+		select Questions.QuestionID, 
+		Questions.Content ,
+		Options.Content ContentO,
+		QuestionnaireQuestions.QuestionnaireID
+			 from Questions ,
+				Options , 
+			 QuestionnaireQuestions,
+			 Questionnaires 
+			where Questions.QuestionID = Options.QuestionID and QuestionnaireQuestions.QuestionID = Questions.QuestionID
+			and QuestionnaireQuestions.QuestionnaireID = Questionnaires.QuestionnaireID
+			and Questionnaires.State = 1
+
+	</select>
+	
+	<!-- 通过ReservationID获取问卷回答数据 -->
+	<select id="findQuestionsColl" parameterType="pd" resultType="pd" useCache="false">
+		select ReservationID,
+		QuestionnaireID,
+		QuestionID,
+		Answer
+		from questionnairecollections
+		where ReservationID = #{ReservationID}
+	
+	</select>
+	<!-- 关联访客和问卷-->
+	<update id="relationQuestions" parameterType="pd" flushCache="false">
+		update Visitors set 
+		QuestionnaireID = #{QuestionnaireID} 
+		where SmartBallID = #{SmartBallID}
+		and State = 2
+	</update>
+	<!-- 问卷结果保存-->
+	<insert id="saveQuestions" parameterType="java.util.List" flushCache="false">
+		insert into QuestionnaireCollections (
+			ReservationID,
+			QuestionnaireID,
+			QuestionID,
+			Answer)
+			values
+			<foreach collection="list" item="item" index="index" separator="," >  
+		    (
+			#{item.ReservationID},
+			#{item.QuestionnaireID},
+			#{item.QuestionID},
+			#{item.Answer}
+			)
+		    </foreach>  
+  			 
+	</insert>
+</mapper>
