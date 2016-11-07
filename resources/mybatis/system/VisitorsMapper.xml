@@ -88,28 +88,28 @@
 	<!-- 生成未来身份证信息 -->
 		<select id="findIDInformation" parameterType="pd" resultType="pd" useCache="false">
 		SELECT
-			v.Name Name, 
-			v.Sex Sex, 
-			v.Age Age, 
-			v.Phone Phone,
-			v.URL URL,
-			v.SmartBallID SmartBallID,
-			ic.No No,
-			i.Name ItemName,
-			(TO_SECONDS(ic.EndDateTime)-TO_SECONDS(ic.BeginDateTime)) Seconds,
-			fs.Score Score,
-			fs.MatchedName StarName,
-			ds.Suggestion DietSuggestion
+			v.Name AS Name, 
+			v.Sex AS Sex, 
+			v.Age AS Age, 
+			v.Phone AS Phone,
+			v.URL AS URL,
+			v.SmartBallID AS SmartBallID,
+			ic.No AS No,
+			i.Name AS ItemName,
+			(TO_SECONDS(ic.EndDateTime)-TO_SECONDS(ic.BeginDateTime)) AS Seconds,
+			fs.Score AS Score,
+			fs.MatchedName AS StarName,
+			ds.Suggestion AS DietSuggestion
 		FROM
-			QingdaoBigData.Visitors v LEFT JOIN QingdaoBigData.ItemCollections ic ON
+			QingdaoBigData.Visitors AS v LEFT JOIN QingdaoBigData.ItemCollections AS ic ON
 			v.ReservationID=ic.ReservationID	
-			JOIN QingdaoBigData.Items i ON
+			JOIN QingdaoBigData.Items AS i ON
 			i.No=ic.No
-			LEFT JOIN QingdaoBigData.FamousScore fs ON
+			LEFT JOIN QingdaoBigData.FamousScore AS fs ON
 			fs.ReservationID=v.ReservationID
-			LEFT JOIN QingdaoBigData.dietanalyses da ON
+			LEFT JOIN QingdaoBigData.dietanalyses AS da ON
 			da.ReservationID=v.ReservationID
-			JOIN QingdaoBigData.DietSuggestions ds ON 
+			JOIN QingdaoBigData.DietSuggestions AS ds ON 
 			da.Result=ds.Result
 		WHERE 
 			v.SmartBallID=#{SmartBallID} AND

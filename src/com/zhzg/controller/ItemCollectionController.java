@@ -71,7 +71,6 @@ public class ItemCollectionController extends BaseController {
 	}
 
 	@RequestMapping("/updateItemCollection")
-
 	public void updateItemCollectionByReservationId(
 			HttpServletRequest request, HttpServletResponse response) {
 		PageData pd=getPageData();

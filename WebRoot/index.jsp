@@ -30,7 +30,7 @@
         	<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
         	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-10">
         		<h1 class="animated fadeInDown">青岛-慧与软件全球大数据应用研究及产业示范基地体验中心</h1>
-          	<p class="animated fadeInUp">Tsingtao-HP Big Date Experience Center</p>
+          	<p class="animated fadeInUp">Tsingtao-HP Big Data Experience Center</p>
         	</div>
           <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
         </div>

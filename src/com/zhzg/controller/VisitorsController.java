@@ -273,7 +273,7 @@ public class VisitorsController extends BaseController {
 				return mv;
 			}			
 			if(smartballInfo==null){//没有收到小球接口返回的信息，这时需要检查小球接口是否可用
-				attr.addFlashAttribute("msg", "与智慧球模块通信出现问题，请联系管理人员");
+				attr.addFlashAttribute("msg", "与智慧球模块通信完成，但未获取到智慧球信息，请联系管理人员");
 				ModelAndView mv = new ModelAndView("redirect:/visitors/error");
 				return mv;
 			}
