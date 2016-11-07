@@ -371,7 +371,6 @@ public class VisitorsController extends BaseController {
 	@Token(save=true)
 	public String ballcollect() {
 		return "/system/ballcollect/ballcollect";
-	}
-	
+	}	
 
 }
