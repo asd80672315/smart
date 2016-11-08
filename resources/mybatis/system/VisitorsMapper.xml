@@ -96,7 +96,7 @@
 			v.SmartBallID AS SmartBallID,
 			ic.No AS No,
 			i.Name AS ItemName,
-			(TO_SECONDS(ic.EndDateTime)-TO_SECONDS(ic.BeginDateTime)) AS Seconds,
+			(DATEDIFF('ss',TO_DATE(ic.Endtimestamp,'YYYY-MM-DD'),TO_DATE(ic.Begintimestamp,'YYYY-MM-DD')) AS Seconds,
 			fs.Score AS Score,
 			fs.MatchedName AS StarName,
 			ds.Suggestion AS DietSuggestion
