@@ -101,21 +101,17 @@
 			fs.MatchedName AS StarName,
 			ds.Suggestion AS DietSuggestion
 		FROM
-			QingdaoBigData.Visitors AS v LEFT JOIN QingdaoBigData.ItemCollections AS ic ON
+			(SELECT * FROM QingdaoBigData.Visitors WHERE SmartBallID=#{SmartBallID} AND State=2 ORDER BY modifiedDate DESC LIMIT 1) AS v 
+			LEFT JOIN QingdaoBigData.ItemCollections AS ic ON
 			v.ReservationID=ic.ReservationID	
-			JOIN QingdaoBigData.Items AS i ON
+			LEFT JOIN QingdaoBigData.Items AS i ON
 			i.No=ic.No
 			LEFT JOIN QingdaoBigData.FamousScore AS fs ON
 			fs.ReservationID=v.ReservationID
 			LEFT JOIN QingdaoBigData.dietanalyses AS da ON
 			da.ReservationID=v.ReservationID
-			JOIN QingdaoBigData.DietSuggestions AS ds ON 
+			LEFT JOIN QingdaoBigData.DietSuggestions AS ds ON 
 			da.Result=ds.Result
-		WHERE 
-			v.SmartBallID=#{SmartBallID} AND
-			v.State=2
-					
-		
 	</select>
 	
 	<!-- 查询最大的visitorid -->
