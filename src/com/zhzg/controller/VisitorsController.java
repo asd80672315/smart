@@ -285,6 +285,11 @@ public class VisitorsController extends BaseController {
 			}
 			//小球获取成功，更新数据
 			String smartballId=smartballInfo[1];
+			if("0".equals(smartballId.trim())){//如果球号为0，则返回错误信息
+				attr.addFlashAttribute("msg", "小球号码异常，请联系管理员");
+				ModelAndView mv = new ModelAndView("redirect:/visitors/error");
+				return mv;
+			}
 			pd.put("SmartBallID", smartballId);
 			visitorsService.updateVisitorByID(pd);
 			attr.addFlashAttribute("source", "嘉宾数据修改");
