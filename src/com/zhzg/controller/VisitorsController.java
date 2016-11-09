@@ -255,7 +255,7 @@ public class VisitorsController extends BaseController {
 		}
 		
 		try {
-			// TODO:弹球，获取SmartBallID
+			// 弹球，获取SmartBallID
 			//String smartballId="simulate"+new Random().nextInt(100);			
 			String deviceID=SmartBallUtils.getDeviceID(request.getRemoteAddr());
 			if(deviceID==null){//客户机ip地址列表的配置文件读取错误，查看config。properties
