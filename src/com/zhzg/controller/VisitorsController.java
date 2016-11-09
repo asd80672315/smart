@@ -258,7 +258,7 @@ public class VisitorsController extends BaseController {
 			// 弹球，获取SmartBallID
 			//String smartballId="simulate"+new Random().nextInt(100);			
 			String deviceID=SmartBallUtils.getDeviceID(request.getRemoteAddr());
-			if(deviceID==null){//客户机ip地址列表的配置文件读取错误，查看config。properties
+			if(deviceID==null){//客户机ip地址列表的配置文件读取错误，查看config.properties
 				attr.addFlashAttribute("msg", "设备IP读取错误，请联系管理人员");
 				ModelAndView mv = new ModelAndView("redirect:/visitors/error");
 				return mv;
