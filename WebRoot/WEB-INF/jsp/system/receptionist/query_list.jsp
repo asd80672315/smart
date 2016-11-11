@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="collapse navbar-collapse">
           <form action="${pageContext.request.contextPath }/visitors/findVisitors" method="post"  class="navbar-form" id="searchNavForm" role="search">
             <div class="form-group">
-              <input type="text" id="phoneOrName" name="ReservationID" value="${pd.ReservationID }" class="form-control search clearable" placeholder="请输入手机号码或者用户名">
+              <input type="text" id="phoneOrName" name="ReservationID" value="" class="form-control search clearable" placeholder="请输入手机号码或者用户名">
               <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
             </div>
           </form>
@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </nav><!-- /Navigation -->
     <table border="1" id="tableQueryList" cellspacing="0" width="1000px">
 	   <tr>
-	   	<td colspan="6">信息列表</td>
+	   	<td colspan="7">信息列表</td>
 	   </tr>
      <tr>
       <td>序号</td>
@@ -65,6 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <td>起始预约号</td>
       <td>终止预约号</td>
       <td>预约时间</td>
+      <td>在馆状态</td>
 	  </tr>
 	  <c:forEach items="${pd}" var="pd">
 		  <tr>
@@ -74,6 +75,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		     <td>${pd.BeginNumbe}</td>
 		     <td>${pd.EndNumber}</td>
 		     <td>${pd.BookingDate}</td>
+		     <td>
+		     <c:if test="${pd.State=='1' }">
+		     	预约
+		     </c:if>
+		     <c:if test="${pd.State=='2' }">
+		     	在馆
+		     </c:if>
+		     <c:if test="${pd.State =='3'}">
+		     	离馆
+		     </c:if>
+		     </td>
 		  </tr>
 	  </c:forEach>
 	</table>
